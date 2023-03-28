@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <!--FORM-->
+    <div class="col-md-5 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h1>Editar un cliente</h1>
+
+          <form class="row g-3" action="/clients/{{client._id}}/edit" method="post">
+            <div class="col-md-12">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{client.name}}"/>
+            </div>
+            <br>
+            <div class="col-md-12">
+              <label for="lastName" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" value="{{client.lastName}}"/>
+            </div>
+            <br>
+            {{! email Input }}
+            <div class="col-md-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{client.email}}"/>
+            </div>
+            <br>
+            {{! phone Input }}
+            <div class="col-md-12">
+              <label for="phone" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="phone" name="phone" value="{{client.phone}}"/>
+            </div>
+            <br>
+            {{! gender Input }}
+            <div class="col-md-12">
+              <label for="gender" class="form-label">Genero</label>
+                <select class="form-select" aria-label="Default select example" name="gender" id="gender">
+                    <option selected value = "{{client.gender}}"> {{client.gender}}</option>
+                    <option value = "M">Masculino</option>
+                    <option value = "F">Femenino</option>
+                </select>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

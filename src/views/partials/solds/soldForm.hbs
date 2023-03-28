@@ -1,0 +1,85 @@
+<div class="card card-body p-4 rounded-0 bg-dark text-white">
+  <h3>Creación de la factura</h3>
+  <form class="row g-3" action="/solds/add" method="post">
+
+    {{! proudct Input }}
+    <div class="col-md-12">
+      <label for="product" class="form-label">Producto</label>
+      <select name="product" id="product" class="form-select">
+        <option selected>Elija un producto</option>
+        {{#each products}}
+          <option value="{{this._id}}">{{this.name}} / {{this.price}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    {{! client Input }}
+    <div class="col-md-12">
+      <label for="client" class="form-label">Cliente</label>
+      <select name="client" id="client" class="form-select">
+        <option selected>Elija un cliente</option>
+        {{#each clients}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    {{! description Input }}
+    <div class="col-md-12">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea cols="30" rows="10" class="form-control" id="description" name="description"></textarea>
+    </div>
+
+    {{! quantity Input }}
+    <div class="col-md-6">
+      <label for="quantity" class="form-label">Cantidad</label>
+      <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad" value="1"/>
+    </div>
+
+    {{! amount Input }}
+    <div class="col-md-6">
+      <label for="price" class="form-label">Monto</label>
+      <input type="number" class="form-control" id="amount" name="amount" placeholder="Total a pagar"/>
+    </div>
+    
+    <div class="col-12 d-flex align-items-center">
+      <button class="btn btn-primary me-3" type="submit">Añadir</button>
+      <a class="btn btn-primary me-3" href="sold">Finalizar pedido</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/6en8XCp+HHAAK5GSLf2xlYtvJ8U2Q4U+9cuEnJoa3" crossorigin="anonymous"></script>
+
+<script>
+  const productSelect = document.getElementById('product');
+  const quantityInput = document.getElementById('quantity');
+  const amountInput = document.getElementById('amount');
+  let products = {};
+
+  // Crear un objeto con los productos y sus precios
+  {{#each products}}
+    products['{{this._id}}'] = {{this.price}};
+  {{/each}}
+
+  // Función para actualizar el monto
+  function updateAmount() {
+    const selectedProduct = productSelect.value;
+    const quantity = parseInt(quantityInput.value, 10);
+
+    if (selectedProduct && products[selectedProduct] && quantity) {
+      amountInput.value = products[selectedProduct] * quantity;
+    } else {
+      amountInput.value = '';
+    }
+  }
+
+  // Escuchar eventos de cambio en el menú desplegable de productos y el campo de cantidad
+  productSelect.addEventListener('change', updateAmount);
+  quantityInput.addEventListener('input', updateAmount);
+
+</script>
+
+
+
+

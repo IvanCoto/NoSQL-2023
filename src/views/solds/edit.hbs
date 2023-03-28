@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <!--FORM-->
+    <div class="col-md-5 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h1>Editar una venta</h1>
+
+          <form class="row g-3" action="/solds/{{sold._id}}/edit" method="post">
+            <div class="col-md-12">
+              <label for="factura" class="form-label"># de Factura</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{sold.name}}" readonly/>
+            </div>
+            <br>
+
+            <div class="col-md-12">
+              <label for="product" class="form-label">Producto</label>
+              <select name="product" id="product" class="form-select">
+                {{#each products}}
+                  <option value="{{this._id}}" {{#if (eq this._id sold.product._id)}}selected{{/if}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <br>
+
+            <div class="col-md-12">
+              <label for="description" class="form-label">Descripcion de la venta</label>
+              <textarea cols="30" rows="10" class="form-control" id="description" name="description">{{sold.description}}</textarea>
+            </div>
+            <br>
+
+            <div class="col-md-12">
+              <label for="amount" class="form-label">Monto total</label>
+              <input type="number" class="form-control" id="amount" name="amount" value="{{sold.amount}}"/>
+            </div>
+            <br>
+
+            <button class="btn btn-primary" type="submit">Actualizar</button>
+            <a href="/solds/" class="btn btn-primary">Volver</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <!--FORM-->
+    <div class="col-md-5 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h1>Editar un proveedor</h1>
+
+          <form class="row g-3" action="/providers/{{provider._id}}/edit" method="post">
+            <div class="col-md-12">
+              <label for="name" class="form-label">Nombre de la empresa</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{provider.name}}"/>
+            </div>
+            <br>
+            {{! email Input }}
+            <div class="col-md-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{provider.email}}"/>
+            </div>
+            <br>
+            {{! phone Input }}
+            <div class="col-md-12">
+              <label for="phone" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="phone" name="phone" value="{{provider.phone}}"/>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

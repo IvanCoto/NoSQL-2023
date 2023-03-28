@@ -1,0 +1,31 @@
+<div class="card card-body p-4 rounded-0 bg-dark text-white">
+  <h3>Añadir un producto</h3>
+  <form class="row g-3" action="/products/add" method="post">
+    {{! name Input }}
+    <div class="col-md-6">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del producto"/>
+    </div>
+
+    {{! price Input }}
+    <div class="col-md-4">
+      <label for="price" class="form-label">Precio</label>
+      <input type="number" class="form-control" id="price" name="price" placeholder="Precio del producto"/>
+    </div>
+
+    {{! price Input }}
+    <div class="col-md-2">
+      <label for="quantity" class="form-label">Cantidad</label>
+      <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Cantidad de unidades del producto"/>
+    </div>
+
+    {{! description Input }}
+    <div class="col-md-12">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea cols="30" rows="10" class="form-control" id="description" name="description"></textarea>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Añadir</button>
+    </div>
+  </form>
+</div>

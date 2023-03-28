@@ -1,0 +1,46 @@
+{{#if solds}}
+
+  <table class="table table-bordered table-hover table-dark">
+    <thead>
+      <tr>
+        <th>N° de factura</th>
+        <th>Producto</th>
+        <th>Precio del Producto</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Monto Total</th>
+        <th colspan="2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each solds}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{description}}</td>
+          <td>{{quantity}}</td>
+          <td>₡ {{amount}}</td>
+          <td>
+            <a href="/solds/{{_id}}/delete" class="btn btn-danger">
+              Delete
+            </a>
+          </td>
+           <td>
+            <a href="/solds/{{_id}}/edit" class="btn btn-info">
+              Edit
+            </a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="text-center text-white">
+      <h1>No hay ventas</h1>
+      <img src="/icons/empty.svg" class="w-75" />
+    </div>
+
+  </div>
+{{/if}}
