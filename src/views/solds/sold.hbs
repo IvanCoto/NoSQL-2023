@@ -5,8 +5,14 @@
       {{> solds/soldTable }}
     </div>
   </div>
-    <form action="/solds/generate-bill" method="POST">
-      <button class="btn btn-primary" type="submit">Generar factura</button>
-    </form>
-    <a href="/solds/" class="btn btn-primary">Volver</a>
+  <div class="row">
+    <div class="col-md-6">
+      <a href="/solds/" class="btn btn-primary">Volver</a>
+    </div>
+    <div class="col-md-6">
+      <form action="/solds/generate-bill" method="POST">
+        <button class="btn btn-primary" type="submit">Generar factura</button>
+      </form>
+    </div>
+  </div>
 </div>

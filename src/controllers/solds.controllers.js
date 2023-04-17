@@ -2,6 +2,7 @@ import Sold from "../model/Sold";
 import Product from "../model/Product";
 import Client from "../model/Client";
 import Bills from "../model/Bills";
+import PDFDocument from "pdfkit";
 
 export const renderSold = async (req, res) => {
   try {
@@ -94,13 +95,65 @@ export const clearSolds = async (req, res) => {
   }
 };
 
+export const generatePDF = async (req, res) => {
+  const doc = new PDFDocument({ bufferPage: true });
+
+  const stream = res.writeHead(200, {
+    'Content-Type': 'application/pdf',
+    'Content-disposition': 'factura.pdf'
+  });
+
+  // Define las opciones de la tabla
+  const options = {
+    columnSpacing: 20,
+    columns: [
+      { header: 'Nombre', key: 'name', width: 150 },
+      { header: 'Descripción', key: 'description', width: 200 },
+      { header: 'Cantidad', key: 'quantity', width: 100 },
+      { header: 'Precio', key: 'price', width: 100 }
+    ]
+  };
+
+  const tabla = await Sold.find().lean(); // Obtener los productos registrados
+  const data = tabla.map((product) => {
+    return {
+      name: product.name,
+      description: product.description,
+      quantity: product.quantity,
+      price: product.price
+    };
+  });
+
+  let total = 0;
+
+  const totalAmount = tabla.reduce((total, sold) => total + sold.amount, 0);
+
+  doc.text('Facturación de la tienda', { align: 'center', underline: true });
+  doc.moveDown();
+
+  doc.on('data', (data) => { stream.write(data) });
+  doc.on('end', () => { stream.end() });
+
+  data.forEach((row) => {
+    const rowData = options.columns.map(column => row[column.key]);
+    doc.moveDown().text(rowData.join(' | '));
+  });
+
+  doc.moveDown().text(`Total a pagar: ${totalAmount}`)
+
+  doc.end();
+}
+
 export const generateBill = async (req, res) => {
   try {
     const solds = await Sold.find().lean();
     const totalAmount = solds.reduce((total, sold) => total + sold.amount, 0);
 
     const bill = new Bills({ amount: totalAmount });
+
     await bill.save();
+
+    await generatePDF(req, res);
 
     await clearSolds(req, res);
 
