@@ -1,6 +1,7 @@
 import Sold from "../model/Sold";
 import Product from "../model/Product";
 import Client from "../model/Client";
+import Bills from "../model/Bills";
 
 export const renderSold = async (req, res) => {
   try {
@@ -90,6 +91,23 @@ export const clearSolds = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Error al eliminar los productos vendidos' });
+  }
+};
+
+export const generateBill = async (req, res) => {
+  try {
+    const solds = await Sold.find().lean();
+    const totalAmount = solds.reduce((total, sold) => total + sold.amount, 0);
+
+    const bill = new Bills({ amount: totalAmount });
+    await bill.save();
+
+    await clearSolds(req, res);
+
+    res.redirect("/solds/");
+  } catch (error) {
+    console.error(error);
+    return res.render("error", { errorMessage: error.message });
   }
 };
 

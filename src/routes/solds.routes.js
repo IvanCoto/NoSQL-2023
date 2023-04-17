@@ -7,6 +7,7 @@ import {
   editSold,
   renderSoldComplete, 
   clearSolds,
+  generateBill,
 } from "../controllers/solds.controllers";
 
 const router = Router();
@@ -25,5 +26,7 @@ router.get("/solds/:id/delete", deleteSold);
 router.get("/solds/clear", clearSolds);
 
 router.get("/solds/sold", renderSoldComplete);
+
+router.post("/solds/generate-bill", generateBill);
 
 export default router;

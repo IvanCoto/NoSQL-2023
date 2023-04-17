@@ -5,6 +5,8 @@
       {{> solds/soldTable }}
     </div>
   </div>
-    <button class="btn btn-primary">Generar factura</button>
+    <form action="/solds/generate-bill" method="POST">
+      <button class="btn btn-primary" type="submit">Generar factura</button>
+    </form>
     <a href="/solds/" class="btn btn-primary">Volver</a>
 </div>
